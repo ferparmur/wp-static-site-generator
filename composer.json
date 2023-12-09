@@ -1,0 +1,14 @@
+{
+    "name": "ferparmur/wp-static-site-generator",
+    "autoload": {
+        "psr-4": {
+            "Ferparmur\\WpStaticSiteGenerator\\": "inc/"
+        }
+    },
+    "authors": [
+        {
+            "name": "fernando-paredes"
+        }
+    ],
+    "require": {}
+}
