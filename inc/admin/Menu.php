@@ -75,7 +75,10 @@ class Menu
                      ]),
             ])
             ->add_tab(__('Advanced Options'), [
-                Field::make('text', 'csrb_first_name', __('First Name')),
+                Field::make('checkbox', 'wpssg_disable_ssl_verify', __('Disable SSL Verify', 'wpssg'))
+                     ->set_help_text(__('A common way to get around the “cURL error 60” issue on local environments. Must not be used in production.',
+                         'wpssg'),
+                     ),
             ]);
     }
 
