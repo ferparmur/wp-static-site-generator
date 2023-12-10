@@ -1,14 +1,16 @@
 {
-    "name": "ferparmur/wp-static-site-generator",
-    "autoload": {
-        "psr-4": {
-            "Ferparmur\\WpStaticSiteGenerator\\": "inc/"
-        }
-    },
-    "authors": [
-        {
-            "name": "fernando-paredes"
-        }
-    ],
-    "require": {}
+  "name": "ferparmur/wp-static-site-generator",
+  "autoload": {
+    "psr-4": {
+      "Ferparmur\\WpStaticSiteGenerator\\": "inc/"
+    }
+  },
+  "authors": [
+    {
+      "name": "fernando-paredes"
+    }
+  ],
+  "require": {
+    "htmlburger/carbon-fields": "^3.6"
+  }
 }

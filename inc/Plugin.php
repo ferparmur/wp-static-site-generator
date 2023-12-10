@@ -2,11 +2,17 @@
 
 namespace Ferparmur\WpStaticSiteGenerator;
 
-class Plugin {
-    const VERSION = '1.0.0';
+use Ferparmur\WpStaticSiteGenerator\Admin\Menu;
 
-    public function __construct()
+class Plugin
+{
+    public function init()
     {
+        $menu = new Menu();
+        $menu->init();
 
+        $postGenerator = new Generators\Post();
+        $postGenerator->init();
     }
+
 }
