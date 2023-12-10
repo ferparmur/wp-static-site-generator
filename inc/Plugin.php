@@ -6,6 +6,11 @@ use Ferparmur\WpStaticSiteGenerator\Admin\Menu;
 
 class Plugin
 {
+
+    public function __construct()
+    {
+    }
+
     public function init()
     {
         $menu = new Menu();

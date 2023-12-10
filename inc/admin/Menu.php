@@ -5,6 +5,7 @@ namespace Ferparmur\WpStaticSiteGenerator\Admin;
 use Carbon_Fields\Carbon_Fields;
 use Carbon_Fields\Container as Carb;
 use Carbon_Fields\Field;
+use Ferparmur\WpStaticSiteGenerator\Config;
 
 use const Ferparmur\WpStaticSiteGenerator\ASSET_DIR;
 
@@ -43,6 +44,8 @@ class Menu
 
     public function createSettingsPage(): void
     {
+        $config = Config::getInstance();
+
         Carb::make('theme_options', __('WPSSG Settings', 'wpssg'))
             ->set_page_parent('wpssg') // reference to a top level container
             ->set_page_menu_title('Settings') // reference to a top level container
@@ -56,12 +59,14 @@ class Menu
                      ))
                      ->set_attributes([
                          'placeholder' => __('https://www.example.com', 'wpssg'),
+                         'readOnly' => false,
                      ]),
             ])
             ->add_tab(__('Deployment'), [
                 Field::make('select', 'wpssg_deployment_method', __('Deployment Method', 'wpssg'))
                      ->set_options([
                          'local' => __('Local Directory', 'wpssg'),
+                         'test' => __('Pedisimo', 'wpssg'),
                      ]),
 
                 Field::make('text', 'wpssg_local_deployment_dir', __('Local Directory Path', 'wpssg'))

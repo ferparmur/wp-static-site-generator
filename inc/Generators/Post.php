@@ -11,7 +11,7 @@ class Post
         add_action('post_updated', [$this, 'generatePost'], 1, PHP_INT_MAX);
     }
 
-    public function generatePost(int $postId)
+    public function generatePost(int $postId): void
     {
         $html = new HtmlPage($this->getPostHtmlViaURL($postId));
         $html->findAndReplace();
