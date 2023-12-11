@@ -6,6 +6,7 @@ return [
         'type' => 'select',
         'options' => [
             'local',
+            'test',
         ],
     ],
     'local_deployment_dir' => ['type' => 'text'],

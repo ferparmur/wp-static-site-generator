@@ -59,7 +59,7 @@ class Menu
                      ))
                      ->set_attributes([
                          'placeholder' => __('https://www.example.com', 'wpssg'),
-                         'readOnly' => false,
+                         'readOnly' => $config->isSettingDefinedByConstant('static_site_url'),
                      ]),
             ])
             ->add_tab(__('Deployment'), [
@@ -77,6 +77,7 @@ class Menu
                      ))
                      ->set_attributes([
                          'placeholder' => __(ABSPATH, 'wpssg'),
+                         'readOnly' => $config->isSettingDefinedByConstant('local_deployment_dir'),
                      ]),
             ])
             ->add_tab(__('Advanced Options'), [
@@ -85,6 +86,13 @@ class Menu
                          'wpssg'),
                      ),
             ]);
+
+        //Set values from constant
+        if (defined('WPSSG_OPTIONS') && is_array(WPSSG_OPTIONS)) {
+            foreach (WPSSG_OPTIONS as $settingKey => $settingDefinition) {
+                carbon_set_theme_option('wpssg_' . $settingKey, $config->getSetting($settingKey));
+            }
+        }
     }
 
     public function bootCarbonFields(): void

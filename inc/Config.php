@@ -10,7 +10,7 @@ class Config
 
     private function __construct()
     {
-        $this->settingDefinitions = include 'settings.php';
+        $this->settingDefinitions = include 'Admin/settings.php';
         $this->settings = $this->loadSettings();
     }
 
@@ -32,6 +32,11 @@ class Config
     public function getSetting(string $settingKey): mixed
     {
         return $this->settings[$settingKey];
+    }
+
+    public function getSettings(): array
+    {
+        return $this->settings;
     }
 
     private function loadSettings(): array
