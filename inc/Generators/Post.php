@@ -18,9 +18,11 @@ class Post
         $permalink = get_post_permalink($postId);
         $handler = new ResponseHandler($permalink);
         $handler->fetch();
-        $handler->loadLinkedInternalUrls();
-        $handler->saveInternalAssets();
-        $handler->findAndReplace();
-        $handler->saveStaticFile();
+        if ($handler->getHttpStatus() === 200) {
+            $handler->loadLinkedInternalUrls();
+            $handler->saveInternalAssets();
+            $handler->findAndReplace();
+            $handler->saveStaticFile();
+        }
     }
 }

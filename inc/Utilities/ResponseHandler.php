@@ -46,6 +46,11 @@ class ResponseHandler
         $this->body = wp_remote_retrieve_body($response);
     }
 
+    public function getHttpStatus(): int
+    {
+        return $this->response->status_code;
+    }
+
     public function findAndReplace()
     {
         $this->body = str_replace('https://wp.htg.local', 'https://www.htg.local', $this->body);
@@ -183,12 +188,14 @@ class ResponseHandler
         foreach ($this->internalAssetUrls as $internalAssetUrl) {
             $handler = new self($internalAssetUrl);
             $handler->fetch();
-            $handler->loadLinkedInternalUrls();
-            if ($recursive) {
-                $handler->saveInternalAssets(true);
+            if ($handler->getHttpStatus() === 200) {
+                $handler->loadLinkedInternalUrls();
+                if ($recursive) {
+                    $handler->saveInternalAssets(true);
+                }
+                $handler->findAndReplace();
+                $handler->saveStaticFile();
             }
-            $handler->findAndReplace();
-            $handler->saveStaticFile();
         }
     }
 
