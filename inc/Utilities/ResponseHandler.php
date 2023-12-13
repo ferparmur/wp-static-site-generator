@@ -32,7 +32,10 @@ class ResponseHandler
 
     public function fetch(): void
     {
-        add_filter('https_ssl_verify', '__return_false');
+        if ($this->config->getSettingValue('disable_ssl_verify')) {
+            add_filter('https_ssl_verify', '__return_false');
+        }
+
         $response = wp_remote_get($this->permalink);
 
         /** @var WP_HTTP_Requests_Response $httpResponse */
@@ -53,7 +56,11 @@ class ResponseHandler
 
     public function findAndReplace()
     {
-        $this->body = str_replace('https://wp.htg.local', 'https://www.htg.local', $this->body);
+        $this->body = str_replace(
+            untrailingslashit(site_url()),
+            untrailingslashit($this->config->getSettingValue('static_site_url')),
+            $this->body
+        );
     }
 
     public function getResponse(): Response

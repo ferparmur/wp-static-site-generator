@@ -32,6 +32,7 @@ class Config
         $this->settings[$staticSiteUrl->getKey()] = $staticSiteUrl;
 
         $deploymentMethod = new OptionsSetting('deployment_method');
+        $deploymentMethod->setDefaultValue('local');
         $deploymentMethod->setOptions([
             'local',
             'test',
