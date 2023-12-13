@@ -16,9 +16,11 @@ class Post
     public function generatePost(int $postId): void
     {
         $permalink = get_post_permalink($postId);
-        $response = new ResponseHandler($permalink);
-        $response->fetch();
-        $response->findAndReplace();
-        $response->saveStaticFile();
+        $handler = new ResponseHandler($permalink);
+        $handler->fetch();
+        $handler->loadLinkedInternalUrls();
+        $handler->saveInternalAssets();
+        $handler->findAndReplace();
+        $handler->saveStaticFile();
     }
 }

@@ -11,6 +11,7 @@
     }
   ],
   "require": {
-    "htmlburger/carbon-fields": "^3.6"
+    "htmlburger/carbon-fields": "^3.6",
+    "voku/simple_html_dom": "^4.8"
   }
 }
