@@ -2,16 +2,19 @@
 
 namespace Ferparmur\WpStaticSiteGenerator;
 
+use Ferparmur\WpStaticSiteGenerator\Settings\AbstractSetting;
+use Ferparmur\WpStaticSiteGenerator\Settings\BoolSetting;
+use Ferparmur\WpStaticSiteGenerator\Settings\OptionsSetting;
+use Ferparmur\WpStaticSiteGenerator\Settings\TextSetting;
+
 class Config
 {
     private static Config $instance;
-    private array $settingDefinitions;
     private array $settings;
 
     private function __construct()
     {
-        $this->settingDefinitions = include 'Admin/settings.php';
-        $this->settings = $this->loadSettings();
+        $this->loadSettings();
     }
 
     public static function getInstance(): static
@@ -23,36 +26,38 @@ class Config
         return self::$instance;
     }
 
-    public function getSetting(string $settingKey): mixed
+    private function loadSettings(): void
+    {
+        $staticSiteUrl = new TextSetting('static_site_url');
+        $this->settings[$staticSiteUrl->getKey()] = $staticSiteUrl;
+
+        $deploymentMethod = new OptionsSetting('deployment_method');
+        $deploymentMethod->setOptions([
+            'local',
+            'test',
+        ]);
+        $this->settings[$deploymentMethod->getKey()] = $deploymentMethod;
+
+        $localDeploymentDir = new TextSetting('local_deployment_dir');
+        $this->settings[$localDeploymentDir->getKey()] = $localDeploymentDir;
+
+        $disableSslVerify = new BoolSetting('disable_ssl_verify');
+        $this->settings[$disableSslVerify->getKey()] = $disableSslVerify;
+    }
+
+    public function getSetting(string $settingKey): AbstractSetting
     {
         return $this->settings[$settingKey];
+    }
+
+    public function getSettingValue(string $settingKey): mixed
+    {
+        return $this->getSetting($settingKey)->getValue();
     }
 
     public function getSettings(): array
     {
         return $this->settings;
-    }
-
-    private function loadSettings(): array
-    {
-        $settings = [];
-        foreach ($this->settingDefinitions as $settingKey => $settingDefinition) {
-            $value = WPSSG_OPTIONS[$settingKey];
-
-            switch ($settingDefinition['type']) {
-                case 'bool':
-                    $value = ! (empty($value) || $value === 'no' || $value === 'false');
-                    break;
-                case 'select':
-                    $value = in_array($value,
-                        $settingDefinition['options']) ? $value : $settingDefinition['options'][0];
-                    break;
-            }
-
-            $settings[$settingKey] = $value;
-        }
-
-        return $settings;
     }
 
 }

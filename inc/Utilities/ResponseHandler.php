@@ -67,7 +67,8 @@ class ResponseHandler
         $pathinfo = pathinfo($path);
         $relativeStaticPath = isset($pathinfo['extension']) ? $path : trailingslashit($path) . 'index.html';
 
-        return trailingslashit($this->config->getSetting('local_deployment_dir')) . ltrim($relativeStaticPath, '/');
+        return trailingslashit($this->config->getSettingValue('local_deployment_dir')) . ltrim($relativeStaticPath,
+                '/');
     }
 
     public function saveStaticFile(): void
