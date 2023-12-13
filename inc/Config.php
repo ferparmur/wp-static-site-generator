@@ -23,12 +23,6 @@ class Config
         return self::$instance;
     }
 
-    public function isSettingDefinedByConstant(
-        string $settingKey
-    ): bool {
-        return defined('WPSSG_OPTIONS') && isset(WPSSG_OPTIONS[$settingKey]);
-    }
-
     public function getSetting(string $settingKey): mixed
     {
         return $this->settings[$settingKey];
@@ -41,13 +35,9 @@ class Config
 
     private function loadSettings(): array
     {
+        $settings = [];
         foreach ($this->settingDefinitions as $settingKey => $settingDefinition) {
-            $value = null;
-            if ($this->isSettingDefinedByConstant($settingKey)) {
-                $value = WPSSG_OPTIONS[$settingKey];
-            } else {
-                $value = get_option('_wpssg_' . $settingKey);
-            }
+            $value = WPSSG_OPTIONS[$settingKey];
 
             switch ($settingDefinition['type']) {
                 case 'bool':
