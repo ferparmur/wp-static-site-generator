@@ -19,7 +19,6 @@ class ResponseHandler
     private array $internalAssetUrls;
     private HtmlDomParser $dom;
     private Response $response;
-
     private string $body;
 
     private Config $config;
@@ -44,7 +43,7 @@ class ResponseHandler
         $headers = $this->response->headers;
 
         $this->realPermalink = $this->response->url;
-        $this->mimeType = isset($headers->getValues('content-teype')[0]) ? strtok($headers->getValues('content-type')[0],
+        $this->mimeType = isset($headers->getValues('content-type')[0]) ? strtok($headers->getValues('content-type')[0],
             ';') : 'text/html';
         $this->body = wp_remote_retrieve_body($response);
     }

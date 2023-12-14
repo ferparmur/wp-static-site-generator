@@ -6,8 +6,6 @@ use Ferparmur\WpStaticSiteGenerator\Utilities\ResponseHandler;
 
 class Post
 {
-    private string $realPermalink;
-
     public function init(): void
     {
         add_action('post_updated', [$this, 'generatePost'], 1, PHP_INT_MAX);

@@ -2,10 +2,12 @@
 
 namespace Ferparmur\WpStaticSiteGenerator\Settings;
 
+use JetBrains\PhpStorm\Pure;
+
 class TextSetting extends AbstractSetting
 {
 
-    public function __construct(string $key)
+    #[Pure] public function __construct(string $key)
     {
         parent::__construct($key);
 

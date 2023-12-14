@@ -24,7 +24,7 @@ abstract class AbstractSetting
     protected function getValueUntyped(): mixed
     {
         if ( ! isset($this->value)) {
-            $this->value = $this->validator->call($this, WPSSG_OPTIONS[$this->key]);
+            $this->value = $this->validator->call($this, WPSSG_OPTIONS[$this->key] ?? $this->defaultValue);
         }
 
         return $this->value;
