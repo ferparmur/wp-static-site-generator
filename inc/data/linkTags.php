@@ -2,5 +2,6 @@
 
 return [
     'link' => ['href'],
-    //'script' => ['src'],
+    'img' => ['src', 'srcset'],
+    'script' => ['src'],
 ];

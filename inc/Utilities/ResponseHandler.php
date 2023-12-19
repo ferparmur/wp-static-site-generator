@@ -155,9 +155,9 @@ class ResponseHandler
         'internalAssetUrls' => "array",
     ])] public function extractLinkedInternalUrlsFromCss(string $css): array
     {
-        preg_match_all('/url\((.*?)\)/', $css, $matches);
+        preg_match_all('/url\(([\'"]?)(.*?)\1\)/', $css, $matches);
 
-        return $this->getInternalAndInternalAssetUrlsFromUrlSet($matches[1]);
+        return $this->getInternalAndInternalAssetUrlsFromUrlSet($matches[2]);
     }
 
     #[ArrayShape([
