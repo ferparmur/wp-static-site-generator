@@ -5,6 +5,7 @@ namespace Ferparmur\WpStaticSiteGenerator;
 use Ferparmur\WpStaticSiteGenerator\Settings\AbstractSetting;
 use Ferparmur\WpStaticSiteGenerator\Settings\BoolSetting;
 use Ferparmur\WpStaticSiteGenerator\Settings\OptionsSetting;
+use Ferparmur\WpStaticSiteGenerator\Settings\RepeaterSetting;
 use Ferparmur\WpStaticSiteGenerator\Settings\TextSetting;
 
 class Config
@@ -44,6 +45,15 @@ class Config
 
         $disableSslVerify = new BoolSetting('disable_ssl_verify');
         $this->settings[$disableSslVerify->getKey()] = $disableSslVerify;
+
+        $crawlStartingPaths = new RepeaterSetting('crawl_starting_paths');
+        $crawlStartingPaths->addSetting(new TextSetting('path'));
+        $crawlStartingPaths->setDefaultValue([
+            [
+                'path' => '/',
+            ],
+        ]);
+        $this->settings[$crawlStartingPaths->getKey()] = $crawlStartingPaths;
     }
 
     public function getSetting(string $settingKey): AbstractSetting
