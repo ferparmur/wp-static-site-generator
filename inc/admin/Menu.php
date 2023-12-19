@@ -3,6 +3,7 @@
 namespace Ferparmur\WpStaticSiteGenerator\Admin;
 
 use const Ferparmur\WpStaticSiteGenerator\ASSET_DIR;
+use const Ferparmur\WpStaticSiteGenerator\TEMPLATE_DIR;
 
 class Menu
 {
@@ -31,7 +32,7 @@ class Menu
             'manage_options',
             'wpssg',
             function () {
-                echo '';
+                include TEMPLATE_DIR . 'admin/menu-page.php';
             });
     }
 
